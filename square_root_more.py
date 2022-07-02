@@ -12,24 +12,17 @@ def hint( n: Decimal ) -> Decimal:
     else:
         return Decimal('1')
 
-n = Decimal('10')
+d = Decimal('.00000000000001')
+n = Decimal('3')
 a = hint(n)
 print(a)
 
-a = one_step(n,a)
-print(a)
+while True:
+    a1 = one_step(n, a)
+    print(a1)
+    z = (a - a1).quantize(d, rounding=ROUND_DOWN)
+    if z == Decimal('0'):
+        break
+    a = a1
 
-a = one_step(n,a)
-print(a)
-
-a = one_step(n,a)
-print(a)
-
-a = one_step(n,a)
-print(a)
-
-a = one_step(n,a)
-print(a)
-
-a = one_step(n,a)
-print(a)
+# 1.732050807568877293527446341505872366942805253810380628055806979451933016908800037081146186757248576  
