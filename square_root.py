@@ -20,3 +20,12 @@ print(a)
 
 a = one_step(n,a)
 print(a)
+
+a = one_step(n,a)
+print(a)
+
+a = one_step(n,a)
+print(a)
+
+a = one_step(n,a)
+print(a)
