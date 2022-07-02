@@ -1,7 +1,5 @@
 from decimal import *
 
-getcontext().prec = 30
-
 def one_step( n: Decimal, a: Decimal ) -> Decimal:
     x = n /( a*a ) - Decimal('1') # |x| must be less than 1
     return a * (Decimal('1') + x/Decimal('2'))
@@ -12,14 +10,18 @@ def hint( n: Decimal ) -> Decimal:
     else:
         return Decimal('1')
 
-d = Decimal('.00000000000001')
-n = Decimal('3')
+nofdigits = 100 # required number of digits
+nofdigits_d = Decimal( str(nofdigits) )
+getcontext().prec = nofdigits+5
+
+d = Decimal('10')**(-nofdigits_d)
+n = Decimal('3') # you want to calc
 a = hint(n)
 print(a)
 
 while True:
     a1 = one_step(n, a)
-    print(a1)
+    print(a1.quantize(d, rounding=ROUND_DOWN))
     z = (a - a1).quantize(d, rounding=ROUND_DOWN)
     if z == Decimal('0'):
         break
