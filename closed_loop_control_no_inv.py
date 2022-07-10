@@ -33,7 +33,7 @@ def record_control(timer):
     mu_record.append(mu)
     Cinput = reference - omega
     Coutput = discrete_output( a0, a1, b0, b1, Cinput, Cinput_prev, Coutput_prev )
-    set_duty( inv(Coutput) )
+    set_duty( Coutput )
     Cinput_prev = Cinput
     Coutput_prev = Coutput
     
@@ -45,13 +45,7 @@ def set_duty(d: float):
         d=min(d,MAX_DUTY)
     pwm.duty_u16( d )
     
-def inv(u: float) -> float:
-    X: float = 33000
-    Y: float = 1000
-    if u>=0.9*Y:
-        return MAX_DUTY       
-    d = X*u/(Y-u)
-    return d
+
 
 def discrete_output( a0: float, a1: float, b0: float, b1:float, input_now: float, input_prev: float, output_prev: float) -> float:
     den = a0 + H/2*a1
@@ -62,8 +56,8 @@ def discrete_output( a0: float, a1: float, b0: float, b1:float, input_now: float
 
 ##### paramters
 
-K: float = 1.0
-T: float = 2.5
+K: float = 0.024
+T: float = 2.0
 mu: float = 1.0
 a0: float = K * mu
 a1: float = 0.0
